@@ -3,6 +3,10 @@ class Article < ApplicationRecord
     has_many :taggings
     has_many :tags, through: :taggings # allows us to use article.tags
 
+    has_attached_file :image, styles: { medium: "300x300>", thumb: "100x100>" }
+    # part of the paperclip library
+    validates_attachment_content_type :image, :content_type => ["image/jpg", "image/jpeg", "image/png"]
+
     def tag_list
         self.tags.collect do |tag|
             tag.name
